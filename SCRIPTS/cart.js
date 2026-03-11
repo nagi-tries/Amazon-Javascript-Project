@@ -23,7 +23,7 @@ export function removeFromCart(index) {
 }
 
 export function clearCart() {
-  cart = [];
+  cart.length = 0;
   localStorage.removeItem('cart');
 }
 
@@ -36,4 +36,5 @@ export function getCartQuantity() {
   });
 
   return total;
+
 }
