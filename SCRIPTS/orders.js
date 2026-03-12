@@ -1,30 +1,26 @@
 import { getOrders } from "./ordersStorage.js";
 
-const container = document.querySelector('.js-orders-container');
+const container = document.querySelector(".js-orders-container");
 
 const orders = getOrders();
 
 if (!orders.length) {
-
   container.innerHTML = "<h3>No orders yet.</h3>";
-
 } else {
-
   renderOrders();
-
 }
 
 function renderOrders() {
 
-  container.innerHTML = '';
+  container.innerHTML = "";
 
   orders.forEach(order => {
 
-    let itemsHTML = '';
+    let itemsHTML = "";
 
     order.items.forEach(item => {
 
-      const price = Number(item.price.replace('$',''));
+      const price = Number(item.price.replace("$", ""));
 
       itemsHTML += `
         <div class="order-item">
@@ -39,6 +35,7 @@ function renderOrders() {
 
         </div>
       `;
+
     });
 
     container.innerHTML += `
@@ -69,7 +66,7 @@ function renderOrders() {
 
       </div>
     `;
-  });
 
+  });
 
 }
