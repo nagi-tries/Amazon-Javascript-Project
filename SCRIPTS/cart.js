@@ -40,3 +40,7 @@ export function getCartQuantity() {
 
 }
 
+export function getCart() {
+  return cart;
+}
+
