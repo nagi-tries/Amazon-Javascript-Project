@@ -1,5 +1,5 @@
 import { cart, removeFromCart, clearCart } from "./cart.js";
-import { saveOrder } from "../ordersStorage.js";
+import { saveOrder } from "./ordersStorage.js";
 
 const cartContainer = document.querySelector('.js-cart-items');
 
@@ -89,3 +89,4 @@ placeOrderButton.addEventListener('click', () => {
 
 
 });
+
