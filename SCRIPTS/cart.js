@@ -1,7 +1,7 @@
- export let cart = JSON.parse(localStorage.getItem('cart')) || [];
+export let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 export function saveCart() {
-  localStorage.setItem('cart', JSON.stringify(cart));
+  localStorage.setItem("cart", JSON.stringify(cart));
 }
 
 export function addToCart(product) {
@@ -18,14 +18,13 @@ export function addToCart(product) {
 }
 
 export function removeFromCart(index) {
-  cart.splice(index,1);
+  cart.splice(index, 1);
   saveCart();
 }
 
 export function clearCart() {
-  console.log("clearing cart");
   cart.length = 0;
-  localStorage.removeItem('cart');
+  saveCart();
 }
 
 export function getCartQuantity() {
@@ -37,10 +36,8 @@ export function getCartQuantity() {
   });
 
   return total;
-
 }
 
 export function getCart() {
   return cart;
 }
-
