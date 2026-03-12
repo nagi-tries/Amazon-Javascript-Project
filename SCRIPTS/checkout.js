@@ -77,7 +77,7 @@ placeOrderButton.addEventListener('click', () => {
   const newOrder = {
     id: crypto.randomUUID(),
     date: new Date().toLocaleDateString(),
-    items: cart,
+    items: cart.map(item=> ({...item}))'
     total: finalTotalElement.innerText
   };
 
@@ -86,5 +86,6 @@ placeOrderButton.addEventListener('click', () => {
   clearCart();
 
   window.location.href = "orders.html";
+
 
 });
