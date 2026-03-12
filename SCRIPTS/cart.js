@@ -1,4 +1,4 @@
-export let cart = JSON.parse(localStorage.getItem('cart')) || [];
+ export let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 export function saveCart() {
   localStorage.setItem('cart', JSON.stringify(cart));
@@ -23,6 +23,7 @@ export function removeFromCart(index) {
 }
 
 export function clearCart() {
+  console.log("clearing cart");
   cart.length = 0;
   localStorage.removeItem('cart');
 }
@@ -38,3 +39,4 @@ export function getCartQuantity() {
   return total;
 
 }
+
