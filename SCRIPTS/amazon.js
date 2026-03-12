@@ -1,56 +1,72 @@
 import { addToCart, getCartQuantity } from "./cart.js";
 
-const quantityElements = document.querySelectorAll('.product-quantity');
+const quantityElements = document.querySelectorAll(".product-quantity");
+const addButtons = document.querySelectorAll(".js-add-to-cart");
 
-quantityElements.forEach(select => {
-
-  for (let i = 1; i <= 10; i++) {
-
-    const option = document.createElement('option');
-
-    option.value = i;
-    option.innerText = i;
-
-    select.appendChild(option);
-  }
-
-});
-
+populateQuantities();
 updateCartQuantity();
+setupAddButtons();
 
-const addButtons = document.querySelectorAll('.js-add-to-cart');
+function populateQuantities() {
 
-addButtons.forEach(button => {
+  quantityElements.forEach(select => {
 
-  button.addEventListener('click', () => {
+    for (let i = 1; i <= 10; i++) {
 
-    const container = button.closest('.product-container');
+      const option = document.createElement("option");
 
-    const name = container.querySelector('.product-name-container').innerText;
+      option.value = i;
+      option.innerText = i;
 
-    const price = container.querySelector('.product-price').innerText;
+      select.appendChild(option);
 
-    const quantity = Number(container.querySelector('.product-quantity').value);
+    }
 
-    const image = container.querySelector('.product-image').src;
-
-    addToCart({
-      name,
-      price,
-      quantity,
-      image
-    });
-
-    updateCartQuantity();
   });
 
-});
+}
+
+function setupAddButtons() {
+
+  addButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      const container = button.closest(".product-container");
+
+      const name =
+        container.querySelector(".product-name-container").innerText;
+
+      const price =
+        container.querySelector(".product-price").innerText;
+
+      const quantity =
+        Number(container.querySelector(".product-quantity").value);
+
+      const image =
+        container.querySelector(".product-image").src;
+
+      addToCart({
+        name,
+        price,
+        quantity,
+        image
+      });
+
+      updateCartQuantity();
+
+    });
+
+  });
+
+}
 
 function updateCartQuantity() {
 
-  const element = document.querySelector('.js-cart-quantity');
+  const element = document.querySelector(".js-cart-quantity");
 
   if (element) {
     element.innerText = getCartQuantity();
   }
+
 }
