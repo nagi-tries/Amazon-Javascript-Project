@@ -1,29 +1,33 @@
-import { cart, removeFromCart, clearCart } from "./cart.js";
+import { getCart, removeFromCart, clearCart } from "./cart.js";
 import { saveOrder } from "./ordersStorage.js";
 
-const cartContainer = document.querySelector('.js-cart-items');
+const cartContainer = document.querySelector(".js-cart-items");
 
-const itemsCountElement = document.querySelector('.js-items-count');
-const itemsTotalElement = document.querySelector('.js-items-total');
-const beforeTaxElement = document.querySelector('.js-before-tax');
-const taxElement = document.querySelector('.js-tax');
-const finalTotalElement = document.querySelector('.js-final-total');
+const itemsCountElement = document.querySelector(".js-items-count");
+const itemsTotalElement = document.querySelector(".js-items-total");
+const beforeTaxElement = document.querySelector(".js-before-tax");
+const taxElement = document.querySelector(".js-tax");
+const finalTotalElement = document.querySelector(".js-final-total");
+
+const placeOrderButton = document.querySelector(".js-place-order");
 
 renderCart();
+setupPlaceOrder();
 
 function renderCart() {
 
-  cartContainer.innerHTML = '';
+  const cartItems = getCart();
+
+  cartContainer.innerHTML = "";
 
   let totalItems = 0;
   let itemsTotal = 0;
 
-  cart.forEach((item,index) => {
+  cartItems.forEach((item, index) => {
 
-    const price = Number(item.price.replace('$',''));
+    const price = Number(item.price.replace("$", ""));
 
     totalItems += item.quantity;
-
     itemsTotal += price * item.quantity;
 
     cartContainer.innerHTML += `
@@ -40,10 +44,10 @@ function renderCart() {
 
       </div>
     `;
+
   });
 
   const tax = itemsTotal * 0.10;
-
   const finalTotal = itemsTotal + tax;
 
   itemsCountElement.innerText = totalItems;
@@ -52,9 +56,15 @@ function renderCart() {
   taxElement.innerText = tax.toFixed(2);
   finalTotalElement.innerText = finalTotal.toFixed(2);
 
-  document.querySelectorAll('.delete-btn').forEach(btn => {
+  setupDeleteButtons();
 
-    btn.addEventListener('click', () => {
+}
+
+function setupDeleteButtons() {
+
+  document.querySelectorAll(".delete-btn").forEach(btn => {
+
+    btn.addEventListener("click", () => {
 
       const index = btn.dataset.index;
 
@@ -68,25 +78,27 @@ function renderCart() {
 
 }
 
-const placeOrderButton = document.querySelector('.js-place-order');
+function setupPlaceOrder() {
 
-placeOrderButton.addEventListener('click', () => {
+  placeOrderButton.addEventListener("click", () => {
 
-  if(cart.length === 0) return;
+    const cartItems = getCart();
 
-  const newOrder = {
-    id: crypto.randomUUID(),
-    date: new Date().toLocaleDateString(),
-    items: cart.map(item=> ({...item}))'
-    total: finalTotalElement.innerText
-  };
+    if (cartItems.length === 0) return;
 
-  saveOrder(newOrder);
+    const order = {
+      id: crypto.randomUUID(),
+      date: new Date().toLocaleDateString(),
+      items: [...cartItems],
+      total: finalTotalElement.innerText
+    };
 
-  clearCart();
+    saveOrder(order);
 
-  window.location.href = "orders.html";
+    clearCart();
 
+    window.location.href = "orders.html";
 
-});
+  });
 
+}
