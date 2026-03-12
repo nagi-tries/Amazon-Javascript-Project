@@ -1,4 +1,4 @@
-import { getOrders } from "../ordersStorage.js";
+import { getOrders } from "./ordersStorage.js";
 
 const container = document.querySelector('.js-orders-container');
 
@@ -70,5 +70,6 @@ function renderOrders() {
       </div>
     `;
   });
+
 
 }
